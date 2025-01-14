@@ -2,12 +2,14 @@
 
 ## Công nghệ sử dụng:
 
-- [Nextjs](https://nextjs.org/docs/getting-started) Typescript
-- [antd](https://ant.design/components/button) xây dựng component
-- [Emotion-styled](https://emotion.sh/docs/styled) style giao diện ~ scss
-- [Dayjs](https://day.js.org/docs/en/display/format) xử lý các tác vụ thời gian
-- [ReduxToolkit](https://redux-toolkit.js.org/tutorials/quick-start#create-a-redux-state-slice) quản lý state, theo kèm [Redux Query](https://redux-toolkit.js.org/rtk-query/usage/queries) để gọi API từ client
-- [ahooks](https://ahooks.js.org/hooks/use-safe-state) xử lý các hooks phổ biến
+- [Nextjs Typescript](https://nextjs.org/docs) (Page Router)
+- [antd v5](https://ant.design/components/overview): Xây dựng component
+- [Emotion-styled](https://emotion.sh/docs/styled): Style giao diện, component
+- Dayjs: Xử lý các tác vụ thời gian
+- Redux: Quản lý Global State
+    - [Redux Toolkit (RTK)](https://redux-toolkit.js.org/usage/usage-with-typescript): giúp dễ dàng thao tác với Redux
+    - [RTK Query](https://redux-toolkit.js.org/rtk-query/overview): xử lý data-fetching với cache, query-key, đồng bộ trạng thái đc tận dụng redux-store
+- [ahooks](https://ahooks.js.org/hooks/use-creation): thư viện gồm các hooks phổ biến
 
 ## Cấu trúc dự án
 
@@ -28,44 +30,35 @@
 ## Convention
 
 - Dự án sử dụng `yarn`
-
 - Sử dụng absolute import path `src/*`
+    
+    ```jsx
+      // Import bằng absolute path ✅
+      import Layout from "src/components/layout/supplierLayout";
+    ```
+    
+- Các **page** (trang chính) sẽ được viết trong `src/pages` như document của NextJS Page Router. Lưu ý ko đc viết component trong này vì cơ chế file-base routing của Nextjs sẽ làm cho component thành 1 trang web riêng.
 
-  ```js
-  // Import bằng absolute path ✅
-  import Layout from "src/components/layout/supplierLayout";
-  ```
-
-- Các **page** (trang chính) sẽ được viết trong `src/pages` như document của `NextJS`
 - Trong `src/components` chứa các component sử dụng xuyên suốt toàn trang
+    - style cho component bằng `emotion-styled` thường đc đặt tên bắt đầu với `Styled___`
 
-  component của `antd` có thể đc bọc lại và style bằng `emotion-styled`.
+- Trong `src/redux` chứa các cấu hình redux
+    - `src/redux/query` gồm các phương thức gọi API: query, mutate. Các query và mutate đc gắn tag để có thể tự động invalidate query, ví dụ như cập nhật xong 1 item thì tự động cập nhật danh sách item
+    - `src/redux/reducer` gồm các redux slice quản lý global state
+    - Lưu ý:   khi tạo mới Reducer, API xong thì cần đc cài đặt vào **`provider store`** ở `src/redux/store.ts`
 
-  component custom style bằng `emotion-styled` đặt tên tương ứng chức năng của nó `storeCard`, `siderNav`....
+- Trong `src/types` định nghĩa các type sử dụng
+đặt tên `type T${type_name} = {}` để dễ dàng gợi ý từ VScode khi gõ **`T`**
 
-- Trong `src/redux/query` gòm các phương thức gọi API
-
-  và `src/redux/reducer` gòm các redux slice quản lý state
-
-  khi tạo mới xong thì cần đc cài đặt vào _provider store_ ở `src/redux/store.ts`
-
-- Trong `src/types` định nghĩa các **type** sử dụng
-
-  đặt tên `type T${type_name} = {}` để dễ dàng gợi ý từ VScode khi gõ `T`
-
-- **Internationalization** (i18n) trong `src/types/i18n/*`
-
-  sử dụng thông qua hooks `useChangeLocale`
+- Đa ngôn ngữ (Internationalization, i18n) trong `src/types/i18n/*`
+sử dụng thông qua hooks `useChangeLocale`
 
 - Gõ `rfc-default` để đc gợi ý snippet cấu trúc code cho file với ReactTSX, EmotionStyled
+đc cài đặt ở trong `./.vscode/vscode.code-snippets`
 
-  đc cài đặt ở trong `./.vscode/vscode.code-snippets`
+- **Lưu lại** file sẽ đc tự động format code
 
-- **Lint** và **format** code:
-
-  Lưu lại file sẽ đc tự động format code
-
-  Các import đc tự sắp xếp và đc xóa những cái ko dùng đến
+  Các **import** đc tự sắp xếp và đc xóa những cái ko dùng đến
 
 - **Commit lint**:
 
