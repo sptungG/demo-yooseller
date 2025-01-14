@@ -1,0 +1,16 @@
+# IDE
+/.husky
+/.vscode
+.commitlintrc.js
+.eslintrc.js
+.prettierrc.js
+.prettierignore
+.gitignore
+.gitattributes
+.editorconfig
+Dockerfile
+docker-compose.yml
+
+/.next
+
+/node_modules

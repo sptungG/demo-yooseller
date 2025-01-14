@@ -1,0 +1,21 @@
+{
+  "extends": ["next/core-web-vitals", "next", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto",
+        "singleQuote": false
+      }
+    ],
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off"
+  }
+}
